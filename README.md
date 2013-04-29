@@ -15,9 +15,9 @@ This project tries to ease the interaction with NetApp filers significantly. Alt
 Development of this libary will be continued and contributions are very welcome. Please consider opening a pull-request if a feature you are looking for is missing. Extending upon this library should be fairly easy.
 
 ### Resources
-NetApp NM SDK Download - http://support.netapp.com/NOW/download/software/nmsdk/5.1/download.shtml
-NetApp SDK and API Documentation - https://communities.netapp.com/community/interfaces_and_tools/developer/apidoc
-NetApp ONTAP Simulator - http://support.netapp.com/NOW/cgi-bin/simulator
+* NetApp NM SDK Download - http://support.netapp.com/NOW/download/software/nmsdk/5.1/download.shtml
+* NetApp SDK and API Documentation - https://communities.netapp.com/community/interfaces_and_tools/developer/apidoc
+* NetApp ONTAP Simulator - http://support.netapp.com/NOW/cgi-bin/simulator
 
 ## Getting Started
 Since the API from NetApp itself is not Open-Source, i cannot include it in this Project directly. Download the NM SDK with the link provided above (you do not have to be a NetApp customer, just register as developer). You might want to download the Simulator (VM) as well as the API Documentation as well for testint purposes before running scripts on actual Filers.
