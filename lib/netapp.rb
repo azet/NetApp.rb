@@ -79,8 +79,8 @@ class Filer
                 boardtype:                     key.child_get_string("board-type"),
                 boardspeed:                    key.child_get_string("board-speed")
             }
-        return result
         end
+        return result
     end
 end
 
