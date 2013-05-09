@@ -482,7 +482,7 @@ class Qtree < Filer
 end
 
 class Quota < Filer
-    def self.create(qtreename, volname, path, quotasize, type)
+    def self.create(qtreename="", volname, path, quotasize, type)
         quota_create = @@filer.invoke("quota-add-entry", 
                                       "qtree", qtreename, 
                                       "volume", volname, 
