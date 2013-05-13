@@ -1,13 +1,11 @@
 #!/usr/bin/env ruby
 
-# require shit
 require 'rubygems'
 require 'sinatra'
 require 'json'
 #require 'bcrypt'
 require './lib/netapp.rb'
 
-# credentials and shit
 @@fileraddr = "192.168.55.10"
 @@fileruser = "root"
 @@filerpwd = "rootr00t"
@@ -16,13 +14,11 @@ require './lib/netapp.rb'
 @@authpwd = "testpwd"
 
 
-# filer stanza shit
 def conn_filer
 	# implement something generic over here
 	Filer.new(@@fileraddr, @@fileruser, @@filerpwd)
 end
 
-# authorize shit
 helpers do  
   def protected!
     return if authorized?
@@ -36,7 +32,6 @@ helpers do
   end
 end
 
-# parse shit
 get '/' do
 	"nope."
 end
