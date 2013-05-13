@@ -27,7 +27,9 @@ Copy the Ruby API from the Manageability SDK (path/to/sdk/lib/ruby/NetApp) to th
 Start writing your Apps.
 
 ### Example
-```
+See also: `examples/`
+
+```Ruby
 rb(main):001:0> require './lib/netapp.rb'
 => true
 irb(main):002:0> Filer.new("192.168.55.10", "root", "rootr00t")
