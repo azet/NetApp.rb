@@ -69,7 +69,7 @@ end
 put '/quota' do
 	protected!
 	conn_filer
-	volumepath = "/vol/${params[:volumename}/"
+	volumepath = "/vol/#{params[:volumename]}/"
 	status 201 if Quota.create(params[:volumename], volumepath, params[:quotasize], params[:type])
 end
 
