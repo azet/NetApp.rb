@@ -22,7 +22,7 @@ require 'NaServer'
 # connect to filer, assign object
 class Filer
     def initialize(filer, username, password, secure=nil)
-        @@filer = NaServer.new(filer, 1, 9) # specifies API version (1.9)
+        @@filer = NaServer.new(filer, 1, 17) # specifies API version (1.17)
         if secure
             # implement me
             return false
