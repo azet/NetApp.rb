@@ -12,7 +12,7 @@
 #
 
 # Include NetApp Manageability SDK for Ruby
-$:.unshift './lib/NMSDK-Ruby' # set this to your actual NMSDK path!
+$:.unshift 'NMSDK-Ruby' # set this to your actual NMSDK path!
 require 'NaServer'
 
 #
@@ -80,7 +80,7 @@ class Filer
                 boardspeed:                    key.child_get_string("board-speed")
             }
         end
-        return result
+	return result
     end
 end
 
@@ -572,17 +572,21 @@ class Vfiler < Filer
         return true
     end
     def self.purge(name)
-        quota_delete = @@filer.invoke("vfiler-destroy", 
-                                      "vfiler", name) 
-        raise quota_delete.results_reason \
-              if quota_delete.results_status == 'failed'
+        vfiler_delete = @@filer.invoke("vfiler-destroy", 
+                                       "vfiler", name) 
+        raise vfiler_delete.results_reason \
+              if vfiler_delete.results_status == 'failed'
         return true
     end
-    def self.add(name)
-        # implement me!
-        return false
+    def self.add_storage(name, storage)
+        vfiler_add_stroage = @@filer.invoke("vfiler-add-storage", 
+                                            "vfiler", name,
+                                            "storage-path", storage) 
+        raise vfiler_add_stroage.results_reason \
+              if vfiler_add_stroage.results_status == 'failed'
+        return true
     end
-    # vfiler-add-storage, setup, start, stop, migrate, status, list
+    # vfiler-add-ipaddress, setup, start, stop, migrate, status, list
 end
 
 class Diag < Filer
