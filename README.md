@@ -70,7 +70,7 @@ irb(main):017:0> Snapshot.purge("testsnapshot", "testvol")
 => true
 ````
 
-##### Aggregate Administration
+#### Aggregate Administration
 ```Ruby
 irb(main):018:0> puts Volume.container("testvol")
 testaggr
