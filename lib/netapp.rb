@@ -44,6 +44,9 @@ class Filer
         raise cf_status.results_reason if cf_status.results_status == 'failed'
         return result = cf_status.child_get_string("is-enabled")
     end
+    def self.set_vfiler(vfilername)
+        return true if @@filer.set_vfiler(vfilername)
+    end
     def self.info
         system_info = @@filer.invoke("system-get-info") 
         raise system_info.results_reason \

@@ -27,10 +27,10 @@ Copy the Ruby API from the Manageability SDK (path/to/sdk/lib/ruby/NetApp) to th
 
 Start writing your Apps.
 
-### Example
+### Examples
 See also: `examples/`
 
-#### Connecting to a Filer
+#### Connecting to a Filer and/or vFiler
 ```Ruby
 rb(main):001:0> require './lib/netapp.rb'
 => true
@@ -44,6 +44,8 @@ false
 
 [79] pry(main)> Filer.is_clustered?
 => false
+[24] pry(main)> Filer.set_vfiler("clientsubfiler001")
+=> true
 ```
 
 #### Listing Volume and Snapshot information
@@ -101,7 +103,7 @@ irb(main):032:0> Aggregate.info("testaggr2")
 => {:name=>"testaggr2", :uuid=>"3031cf33-ae0c-11e2-ad23-123478563412", :state=>"online", :type=>"aggr", :haslocalroot=>"false", :haspartnerroot=>"false", :checksumstatus=>"active", :isinconsistent=>"false", :sizetotal=>"7549747200", :sizeused=>"5398806528", :sizeavail=>"2150940672", :sizepercentage=>"72", :filestotal=>"31142", :filesused=>"96", :isnaplock=>"false", :snaplocktype=>nil, :mirrorstatus=>"unmirrored", :raidsize=>"16", :raidstatus=>"raid_dp", :diskcount=>"10", :volumecount=>"1", :volstripeddvcount=>nil, :volstripedmdvcount=>nil, :volumes=>["testvol2"], :plexcount=>"1", :plexes=>{{:name=>"/testaggr2/plex0"}=>{:isonline=>"true", :isresyncing=>"false", :resyncpercentage=>nil}}}
 ```
 
-#### Adding a NFS export
+#### NFS export Managment
 (root access for one host, RO for all)
 ```Ruby
 [82] pry(main)> NFS.off
@@ -111,6 +113,8 @@ irb(main):032:0> Aggregate.info("testaggr2")
 [64] pry(main)> NFS.add_export("/vol/tester", type="read-only", allhosts=true)
 => true
 [65] pry(main)> NFS.add_export("/vol/tester", type="root", exports="bla.xyz.tld")
+=> true
+[128] pry(main)> NFS.del_export("/vol/tester")
 => true
 ```
 
