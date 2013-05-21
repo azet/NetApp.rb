@@ -71,6 +71,7 @@ irb(main):017:0> Snapshot.purge("testsnapshot", "testvol")
 ````
 
 ##### Aggregate Administration
+```Ruby
 irb(main):018:0> puts Volume.container("testvol")
 testaggr
 => nil
@@ -119,7 +120,7 @@ irb(main):032:0> Aggregate.info("testaggr2")
 => true
 [88] pry(main)> Quota.purge("tester", "/vol/tester", "user")
 => true
-[89] pry(main)> Quota.purge("tester", "/vol/nonexistent", "user")
+[89] pry(main)> Quota.purge("nonexistent", "/vol/nonexistent", "user")
 RuntimeError: quota /vol/nonexistent of type user could not be found
 from /Users/azet/gmi-git/HPC/scripts/netapp/lib/netapp.rb:503:in `purge'
 ```
