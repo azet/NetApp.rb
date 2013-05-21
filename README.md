@@ -10,6 +10,7 @@ This project tries to ease the interaction with NetApp filers significantly. Alt
 * Volume managment and statistics
 * Snapshot managment and statistics
 * Qtree and Quota managment, statistics
+* NFS management
 * vFiler creation, deletion
 
 Development of this libary will be continued and contributions are very welcome. Please consider opening a pull-request if a feature you are looking for is missing. Extending upon this library should be fairly easy.
@@ -29,6 +30,7 @@ Start writing your Apps.
 ### Example
 See also: `examples/`
 
+#### Connecting to a Filer
 ```Ruby
 rb(main):001:0> require './lib/netapp.rb'
 => true
@@ -37,6 +39,15 @@ irb(main):002:0> Filer.new("192.168.55.10", "root", "rootr00t")
 irb(main):005:0> puts Filer.is_ha?
 false
 => nil
+
+...
+
+[79] pry(main)> Filer.is_clustered?
+=> false
+```
+
+#### Listing Volume and Snapshot information
+````Ruby
 irb(main):007:0> puts Volume.list
 testvol
 vol0
@@ -57,6 +68,10 @@ irb(main):015:0> Snapshot.create("snapshot22", "testvol")
 => true
 irb(main):017:0> Snapshot.purge("testsnapshot", "testvol")
 => true
+````
+
+#### Aggregate Administration
+```Ruby
 irb(main):018:0> puts Volume.container("testvol")
 testaggr
 => nil
@@ -86,6 +101,30 @@ irb(main):032:0> Aggregate.info("testaggr2")
 => {:name=>"testaggr2", :uuid=>"3031cf33-ae0c-11e2-ad23-123478563412", :state=>"online", :type=>"aggr", :haslocalroot=>"false", :haspartnerroot=>"false", :checksumstatus=>"active", :isinconsistent=>"false", :sizetotal=>"7549747200", :sizeused=>"5398806528", :sizeavail=>"2150940672", :sizepercentage=>"72", :filestotal=>"31142", :filesused=>"96", :isnaplock=>"false", :snaplocktype=>nil, :mirrorstatus=>"unmirrored", :raidsize=>"16", :raidstatus=>"raid_dp", :diskcount=>"10", :volumecount=>"1", :volstripeddvcount=>nil, :volstripedmdvcount=>nil, :volumes=>["testvol2"], :plexcount=>"1", :plexes=>{{:name=>"/testaggr2/plex0"}=>{:isonline=>"true", :isresyncing=>"false", :resyncpercentage=>nil}}}
 ```
 
+#### Adding a NFS export
+(root access for one host, RO for all)
+```Ruby
+[82] pry(main)> NFS.off
+=> true
+[83] pry(main)> NFS.on
+=> true
+[64] pry(main)> NFS.add_export("/vol/tester", type="read-only", allhosts=true)
+=> true
+[65] pry(main)> NFS.add_export("/vol/tester", type="root", exports="bla.xyz.tld")
+=> true
+```
+
+#### Quota Management
+```Ruby
+[87] pry(main)> Quota.create("tester", "/vol/tester", "50mb", "user")
+=> true
+[88] pry(main)> Quota.purge("tester", "/vol/tester", "user")
+=> true
+[89] pry(main)> Quota.purge("nonexistent", "/vol/nonexistent", "user")
+RuntimeError: quota /vol/nonexistent of type user could not be found
+from /Users/azet/gmi-git/HPC/scripts/netapp/lib/netapp.rb:503:in `purge'
+```
+
 
 ## Authors and License
 * Aaron <azet@azet.org> Zauner
@@ -94,7 +133,7 @@ http://opensource.org/licenses/MIT
 
     The MIT License (MIT)
 
-    Copyright (c) 2013  Aaron Zauner
+    Copyright (c) 2013 Aaron Zauner
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
