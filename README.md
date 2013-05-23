@@ -103,7 +103,7 @@ irb(main):032:0> Aggregate.info("testaggr2")
 => {:name=>"testaggr2", :uuid=>"3031cf33-ae0c-11e2-ad23-123478563412", :state=>"online", :type=>"aggr", :haslocalroot=>"false", :haspartnerroot=>"false", :checksumstatus=>"active", :isinconsistent=>"false", :sizetotal=>"7549747200", :sizeused=>"5398806528", :sizeavail=>"2150940672", :sizepercentage=>"72", :filestotal=>"31142", :filesused=>"96", :isnaplock=>"false", :snaplocktype=>nil, :mirrorstatus=>"unmirrored", :raidsize=>"16", :raidstatus=>"raid_dp", :diskcount=>"10", :volumecount=>"1", :volstripeddvcount=>nil, :volstripedmdvcount=>nil, :volumes=>["testvol2"], :plexcount=>"1", :plexes=>{{:name=>"/testaggr2/plex0"}=>{:isonline=>"true", :isresyncing=>"false", :resyncpercentage=>nil}}}
 ```
 
-#### NFS export Managment
+#### NFS export Management
 (root access for one host, RO for all)
 ```Ruby
 [82] pry(main)> NFS.off
