@@ -11,8 +11,8 @@
 #   Aaron <azet@azet.org> Zauner
 #
 
-# Include NetApp Manageability SDK for Ruby
-$:.unshift './lib/NMSDK-Ruby' # set this to your actual NMSDK path!
+# Include NetApp Manageability SDK for Ruby (change name if neccessary)
+$: << File.expand_path(File.dirname(__FILE__) + "/../lib/NMSDK-Ruby")
 require 'NaServer'
 
 #
