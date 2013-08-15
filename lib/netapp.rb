@@ -21,21 +21,31 @@ require 'NaServer'
 
 # connect to filer, assign object
 class Filer
-    def initialize(filer, username, password, secure=nil)
+    def initialize(filer, username, password, secure=true, type=filer)
         @@filer = NaServer.new(filer, 1, 17) # specifies API version (1.17)
         if secure
-            # implement me
-            return false
+            # connect via SSL/TLS
+            @@filer.set_transport_type("HTTPS")
+            @@filer.set_admin_user(username, password)
+            raise 'insecure connection!' unless @@filer.use_https
         else
+            # non-encrypted connection
             @@filer.set_admin_user(username, password)
         end
+
+        # TODO: implement NaServer::set_server_type for NetApp DFM/Filer
+        # TODO: implement different login styles (usr,pwd - cert - ...)
+        #       see also - NaServer::set_style
+    end
+    def self.is_secure?
+        https = @@filer.use_https
+        return true if https
     end
     def self.is_clustered?
         sys_version = @@filer.invoke("system-get-version")
         raise sys_version.results_reason \
               if sys_version.results_status == 'failed'
-        return sys_version.child_get_string("version") \
-               =~ /Cluster-Mode/ ? true : false
+        return sys_version.child_get_string("version") =~ /Cluster-Mode/ ? true : false
     end
     def self.is_ha?
         cf_status = @@filer.invoke("cf-status")
@@ -83,7 +93,7 @@ class Filer
                 boardspeed:                    key.child_get_string("board-speed")
             }
         end
-	return result
+        return result
     end
 end
 
@@ -552,7 +562,7 @@ class Quota < Filer
               if quota_status.results_status == 'failed'
         return result = quota_status.child_get_string("status")
     end
-    # XXX: no longer supported in NMSDK API as it seems
+    # TODO: no longer supported in NMSDK API as it seems
     #def self.user(userid, username, usertype)
     #    quota_user = @@filer.invoke("quota-user", 
     #                                "quota-user-id", userid,
