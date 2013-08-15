@@ -26,8 +26,8 @@ class Filer
         if secure
             # connect via SSL/TLS
             @@filer.set_transport_type("HTTPS")
-            @@filer.set_admin_user(username, password)
             raise 'insecure connection!' unless @@filer.use_https
+            @@filer.set_admin_user(username, password)
         else
             # non-encrypted connection
             @@filer.set_admin_user(username, password)
