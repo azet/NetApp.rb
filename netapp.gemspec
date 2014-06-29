@@ -8,6 +8,6 @@ Gem::Specification.new do |s|
 	s.authors	= ["Aaron Zauner"]
 	s.email		= 'azet@azet.org'
 	s.files		= ["lib/netapp.rb"]
-	s.homepage	= 'https://github.com/Gregor-Mendel-Institute/NetApp.rb'
+	s.homepage	= 'https://github.com/azet/NetApp.rb'
 	s.license	= 'MIT'
 end
